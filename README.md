@@ -1,1 +1,1 @@
-# Notes go here
+# Learn C
