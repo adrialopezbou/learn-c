@@ -22,9 +22,18 @@ int main()
     printf("a: %p\n", a);
 
     // Freeing up the space allocated for "a", so the program no longer controls that memory space
+    // But the data in that address is not actually cleared
     // C doesn't free up space automatically when using malloc, calloc or realloc, so we must free space using free()
     // A memory leak can occur when we fail to free dynamically allocated memory
     free(a);
+
+    // Difference between calloc and malloc is that calloc it first empties the memory space (adding all 0s) while malloc keeps whatever data was there
+    // And instead of passing the number of bytes, we have to pass the number of items and the bytes of each of those items
+    int *b = calloc(10, sizeof(int));
+
+    // Modifying the memory allocation size to whatever size b had plus 5.
+    // Data is not modified, but if the new size conflicts with other allocated memory, it will copy everything to a free block of memory
+    b = realloc(b, sizeof(int) * (size + 5));
 
     return 0;
 }
